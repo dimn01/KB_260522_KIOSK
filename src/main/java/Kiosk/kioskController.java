@@ -1,24 +1,60 @@
 package Kiosk;
 
+import Kiosk.command.*;
+import Kiosk.dao.MemberDao;
+import Kiosk.dao.MockMemberDaoImpl;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
 
 public class kioskController {
 
-    static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
+    //
+    private static final MemberDao memberDao = new MockMemberDaoImpl();
+    //
+    private static final Map<Integer, Command> commands = new HashMap<>();
+
+    static {
+        // 커맨드 초기화
+        commands.put(1, new LoginCommand(memberDao, sc));
+        commands.put(2, new SignupCommand(memberDao, sc));
+        commands.put(9, new LogoutCommand());
+        // 3~8번 기능은 추후 구현 예정 (현재는 가상 커맨드나 메시지 처리 가능)
+    }
 
     public static void main(String[] args) {
-        int choice = showMainMenu();
-        System.out.println("선택한 번호: " + choice);
-        if (choice == 0) {
-            return;
+        while (true) {
+            // 사용자가 입력한 값 저장
+            int choice = showMainMenu();
+            
+            if (choice == 0) {
+                System.out.println("프로그램을 종료합니다.");
+                break;
+            }
+
+            // 선택한 기능 command(로그인, 로그아웃 등 기능 함수로) 불러오기
+            Command command = commands.get(choice);
+            if (command != null) {
+                command.execute(); //받아온 함수 실행
+            } else if (choice >= 3 && choice <= 8) {
+                System.out.println("해당 기능은 아직 구현되지 않았습니다.");
+            } else {
+                System.out.println("잘못된 선택입니다. 다시 입력해주세요.");
+            }
         }
     }
 
     // 초기 화면 출력 및 선택
     public static int showMainMenu() {
-
-        System.out.println("===================================");
+        System.out.println("\n===================================");
         System.out.println("          PC방 키오스크 시스템         ");
+        if (SessionManager.isLoggedIn()) {
+            System.out.println(" [ 로그인 중: " + SessionManager.getLoggedInMember().getName() + " 님 ]");
+        } else {
+            System.out.println(" [ 로그인 필요 ]");
+        }
         System.out.println("===================================");
         System.out.println("1. 로그인");
         System.out.println("2. 회원가입");
@@ -28,11 +64,18 @@ public class kioskController {
         System.out.println("6. 음식 조회");
         System.out.println("7. 음료 조회");
         System.out.println("8. 주문내역 조회");
+        System.out.println("9. 로그아웃");
         System.out.println("0. 종료");
+        System.out.println("===================================");
+        System.out.print("선택: ");
 
-        int choice = sc.nextInt();
-        sc.nextLine(); // 버퍼 비우기
-
-        return choice;
+        try {
+            int choice = sc.nextInt();
+            sc.nextLine(); // 버퍼 비우기
+            return choice;
+        } catch (Exception e) {
+            sc.nextLine(); // 잘못된 입력 버퍼 비우기
+            return -1;
+        }
     }
 }
