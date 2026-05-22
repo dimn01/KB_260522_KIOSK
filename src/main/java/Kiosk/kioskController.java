@@ -12,6 +12,8 @@ public class kioskController {
         if (choice == 0) {
             return;
         }
+        if(choice == 8) order_log.showOrderLog();
+        
     }
 
     // 초기 화면 출력 및 선택
