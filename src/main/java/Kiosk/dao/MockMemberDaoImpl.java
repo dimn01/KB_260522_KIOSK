@@ -31,4 +31,13 @@ public class MockMemberDaoImpl implements MemberDao {
             System.out.println("[임시 MockDB] 접속 일시 업데이트 완료: " + memberId);
         }
     }
+
+    @Override
+    public void updateRemainingTime(String memberId, int additionalTime) {
+        Member member = db.get(memberId);
+        if (member != null) {
+            member.setRemainingTime(member.getRemainingTime() + additionalTime);
+            System.out.println("[임시 MockDB] 잔여 시간 업데이트 완료: " + memberId + " (+ " + additionalTime + "분)");
+        }
+    }
 }

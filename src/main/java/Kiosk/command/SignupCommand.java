@@ -36,7 +36,7 @@ public class SignupCommand implements Command {
         System.out.print("주소: ");
         String address = sc.nextLine();
 
-        Member newMember = new Member(id, pw, email, name, phone, address, LocalDateTime.now(), null);
+        Member newMember = new Member(id, pw, email, name, phone, address, LocalDateTime.now(), null, 0);
         memberDao.insertMember(newMember);
         System.out.println("회원가입이 완료되었습니다!");
     }

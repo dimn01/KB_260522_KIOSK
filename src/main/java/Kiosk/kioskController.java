@@ -22,6 +22,7 @@ public class kioskController {
         // 커맨드 초기화
         commands.put(1, new LoginCommand(memberDao, sc));
         commands.put(2, new SignupCommand(memberDao, sc));
+        commands.put(3, new TimeChargeCommand(memberDao, sc));
         commands.put(9, new LogoutCommand());
         // 3~8번 기능은 추후 구현 예정 (현재는 가상 커맨드나 메시지 처리 가능)
     }
@@ -40,7 +41,7 @@ public class kioskController {
             Command command = commands.get(choice);
             if (command != null) {
                 command.execute(); //받아온 함수(커멘드) 실행
-            } else if (choice >= 3 && choice <= 8) {
+            } else if (choice >= 4 && choice <= 8) {
                 System.out.println("해당 기능은 아직 구현되지 않았습니다.");
             } else {
                 System.out.println("잘못된 선택입니다. 다시 입력해주세요.");
