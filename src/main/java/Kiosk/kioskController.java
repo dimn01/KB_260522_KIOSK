@@ -2,6 +2,7 @@ package Kiosk;
 
 import Kiosk.command.*;
 import Kiosk.dao.MemberDao;
+import Kiosk.controller.FoodOrderController;
 import Kiosk.dao.MockMemberDaoImpl;
 import Kiosk.dao.JsonMemberDaoImpl;
 import java.util.HashMap;
@@ -14,6 +15,8 @@ public class kioskController {
     private static final Scanner sc = new Scanner(System.in);
     //
     // private static final MemberDao memberDao = new MockMemberDaoImpl(); // 기존 메모리 기반 저장소
+    private static final FoodOrderController foodOrderController = new FoodOrderController();
+
     private static final MemberDao memberDao = new JsonMemberDaoImpl(); // JSON 파일 기반 저장소로 변경
     //
     private static final Map<Integer, Command> commands = new HashMap<>();
@@ -23,6 +26,8 @@ public class kioskController {
         commands.put(1, new LoginCommand(memberDao, sc));
         commands.put(2, new SignupCommand(memberDao, sc));
         commands.put(3, new TimeChargeCommand(memberDao, sc));
+        commands.put(4, new FoodOrderCommand(foodOrderController, sc));
+        commands.put(5, new CartCommand(foodOrderController, sc));
         commands.put(9, new LogoutCommand());
         // 3~8번 기능은 추후 구현 예정 (현재는 가상 커맨드나 메시지 처리 가능)
     }
@@ -41,7 +46,7 @@ public class kioskController {
             Command command = commands.get(choice);
             if (command != null) {
                 command.execute(); //받아온 함수(커멘드) 실행
-            } else if (choice >= 4 && choice <= 8) {
+            } else if (choice >= 6 && choice <= 8) {
                 System.out.println("해당 기능은 아직 구현되지 않았습니다.");
             } else {
                 System.out.println("잘못된 선택입니다. 다시 입력해주세요.");
