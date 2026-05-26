@@ -3,6 +3,7 @@ package Kiosk;
 import Kiosk.command.*;
 import Kiosk.dao.MemberDao;
 import Kiosk.dao.MockMemberDaoImpl;
+import Kiosk.dao.JsonMemberDaoImpl;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,7 +13,8 @@ public class kioskController {
 
     private static final Scanner sc = new Scanner(System.in);
     //
-    private static final MemberDao memberDao = new MockMemberDaoImpl();
+    // private static final MemberDao memberDao = new MockMemberDaoImpl(); // 기존 메모리 기반 저장소
+    private static final MemberDao memberDao = new JsonMemberDaoImpl(); // JSON 파일 기반 저장소로 변경
     //
     private static final Map<Integer, Command> commands = new HashMap<>();
 
@@ -37,7 +39,7 @@ public class kioskController {
             // 선택한 기능 command(로그인, 로그아웃 등 기능 함수로) 불러오기
             Command command = commands.get(choice);
             if (command != null) {
-                command.execute(); //받아온 함수 실행
+                command.execute(); //받아온 함수(커멘드) 실행
             } else if (choice >= 3 && choice <= 8) {
                 System.out.println("해당 기능은 아직 구현되지 않았습니다.");
             } else {

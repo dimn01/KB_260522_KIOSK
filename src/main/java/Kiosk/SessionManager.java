@@ -2,6 +2,7 @@ package Kiosk;
 
 import Kiosk.domain.Member;
 
+//로그인 상태 구현을 위한 세션 함수
 public class SessionManager {
     private static Member loggedInMember;
 

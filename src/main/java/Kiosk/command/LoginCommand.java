@@ -31,6 +31,7 @@ public class LoginCommand implements Command {
         Member member = memberDao.getMemberById(id);
         if (member != null && member.getPassword().equals(pw)) {
             SessionManager.login(member);
+            // 마지막 로그인 업데이트
             memberDao.updateLastLoginDate(id);
             System.out.println(member.getName() + "님, 환영합니다!");
         } else {
