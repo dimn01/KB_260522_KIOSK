@@ -1,0 +1,118 @@
+{
+  "categories": [
+    {
+      "id": "C1",
+      "name": "라면류"
+    },
+    {
+      "id": "C2",
+      "name": "덮밥/볶음밥류"
+    },
+    {
+      "id": "C3",
+      "name": "카페/음료류"
+    },
+    {
+      "id": "C4",
+      "name": "스낵/과자류"
+    }
+  ],
+  "foods": [
+    {
+      "foodId": "R001",
+      "categoryId": "C1",
+      "name": "신라면",
+      "price": 4000,
+      "stock": 100,
+      "description": "기본 신라면"
+    },
+    {
+      "foodId": "R002",
+      "categoryId": "C1",
+      "name": "진라면(매운맛)",
+      "price": 4000,
+      "stock": 100,
+      "description": "칼칼한 진라면"
+    },
+    {
+      "foodId": "R003",
+      "categoryId": "C1",
+      "name": "까르보불닭볶음면",
+      "price": 5000,
+      "stock": 80,
+      "description": "매운 까르보나라"
+    },
+    {
+      "foodId": "B001",
+      "categoryId": "C2",
+      "name": "제육덮밥",
+      "price": 7500,
+      "stock": 50,
+      "description": "가성비 제육볶음"
+    },
+    {
+      "foodId": "B002",
+      "categoryId": "C2",
+      "name": "치킨마요덮밥",
+      "price": 6500,
+      "stock": 50,
+      "description": "단짠 치킨마요"
+    },
+    {
+      "foodId": "B003",
+      "categoryId": "C2",
+      "name": "통삼겹짜글이",
+      "price": 8000,
+      "stock": 40,
+      "description": "삼겹살이 통째로 들어간 짜글이"
+    },
+    {
+      "foodId": "D001",
+      "categoryId": "C3",
+      "name": "몬스터에너지",
+      "price": 3000,
+      "stock": 50,
+      "description": "고카페인 음료"
+    },
+    {
+      "foodId": "D002",
+      "categoryId": "C3",
+      "name": "콜라",
+      "price": 2000,
+      "stock": 200,
+      "description": "시원한 콜라"
+    },
+    {
+      "foodId": "D003",
+      "categoryId": "C3",
+      "name": "사이다",
+      "price": 4000,
+      "stock": 80,
+      "description": "시원한 사이다"
+    },
+    {
+      "foodId": "S001",
+      "categoryId": "C4",
+      "name": "포카칩",
+      "price": 1500,
+      "stock": 50,
+      "description": "근본 과자"
+    },
+    {
+      "foodId": "S002",
+      "categoryId": "C4",
+      "name": "새우깡",
+      "price": 1500,
+      "stock": 50,
+      "description": "고소한 새우깡"
+    },
+    {
+      "foodId": "S003",
+      "categoryId": "C4",
+      "name": "허니버터칩",
+      "price": 1200,
+      "stock": 60,
+      "description": "달콤한 꿀이 곁들어진 과자"
+    }
+  ]
+}

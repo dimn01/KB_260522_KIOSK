@@ -13,4 +13,7 @@ public interface MemberDao {
 
     // 로그인 시간 업데이트
     void updateLastLoginDate(String memberId);
+
+    // 잔여 시간 업데이트
+    void updateRemainingTime(String memberId, int additionalTime);
 }
