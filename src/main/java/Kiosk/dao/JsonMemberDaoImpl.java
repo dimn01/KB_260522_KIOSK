@@ -76,4 +76,14 @@ public class JsonMemberDaoImpl implements MemberDao {
             System.out.println("[JSON DB] 접속 일시 업데이트 완료: " + memberId);
         }
     }
+
+    @Override
+    public void updateRemainingTime(String memberId, int additionalTime) {
+        Member member = db.get(memberId);
+        if (member != null) {
+            member.setRemainingTime(member.getRemainingTime() + additionalTime);
+            saveMembers();
+            System.out.println("[JSON DB] 잔여 시간 업데이트 완료: " + memberId + " (+ " + additionalTime + "분)");
+        }
+    }
 }

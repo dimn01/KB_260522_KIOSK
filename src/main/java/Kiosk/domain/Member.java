@@ -11,10 +11,15 @@ public class Member {
     private String address;
     private LocalDateTime signupDate;
     private LocalDateTime lastLoginDate;
+    private int remainingTime; // 잔여 시간 (분 단위)
 
     public Member() {}
 
     public Member(String memberId, String password, String email, String name, String phone, String address, LocalDateTime signupDate, LocalDateTime lastLoginDate) {
+        this(memberId, password, email, name, phone, address, signupDate, lastLoginDate, 0);
+    }
+
+    public Member(String memberId, String password, String email, String name, String phone, String address, LocalDateTime signupDate, LocalDateTime lastLoginDate, int remainingTime) {
         this.memberId = memberId;
         this.password = password;
         this.email = email;
@@ -23,6 +28,7 @@ public class Member {
         this.address = address;
         this.signupDate = signupDate;
         this.lastLoginDate = lastLoginDate;
+        this.remainingTime = remainingTime;
     }
 
     public String getMemberId() { return memberId; }
@@ -41,14 +47,15 @@ public class Member {
     public void setSignupDate(LocalDateTime signupDate) { this.signupDate = signupDate; }
     public LocalDateTime getLastLoginDate() { return lastLoginDate; }
     public void setLastLoginDate(LocalDateTime lastLoginDate) { this.lastLoginDate = lastLoginDate; }
+    public int getRemainingTime() { return remainingTime; }
+    public void setRemainingTime(int remainingTime) { this.remainingTime = remainingTime; }
 
     @Override
     public String toString() {
         return "Member{" +
                 "memberId='" + memberId + '\'' +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", signupDate=" + signupDate +
+                ", remainingTime=" + remainingTime + "분" +
                 '}';
     }
 }
