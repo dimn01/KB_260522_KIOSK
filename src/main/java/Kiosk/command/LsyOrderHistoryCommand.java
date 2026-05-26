@@ -4,12 +4,15 @@ import Kiosk.SessionManager;
 import Kiosk.dao.LsyOrderDao;
 import Kiosk.domain.LsyOrder;
 import java.util.List;
+import java.util.Scanner;
 
 public class LsyOrderHistoryCommand implements Command {
     private final LsyOrderDao orderDao;
+    private final Scanner sc;
 
-    public LsyOrderHistoryCommand(LsyOrderDao orderDao) {
+    public LsyOrderHistoryCommand(LsyOrderDao orderDao, Scanner sc) {
         this.orderDao = orderDao;
+        this.sc = sc;
     }
 
     @Override
@@ -35,5 +38,7 @@ public class LsyOrderHistoryCommand implements Command {
             }
         }
         System.out.println("===================================");
+        System.out.println("[Enter] 키를 누르면 메인 메뉴로 돌아갑니다.");
+        sc.nextLine();
     }
 }

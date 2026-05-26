@@ -2,7 +2,6 @@ package Kiosk;
 
 import Kiosk.command.*;
 import Kiosk.dao.MemberDao;
-import Kiosk.dao.MockMemberDaoImpl;
 import Kiosk.dao.JsonMemberDaoImpl;
 import Kiosk.dao.LsyOrderDao;
 import Kiosk.dao.LsyJsonOrderDaoImpl;
@@ -25,7 +24,7 @@ public class kioskController {
         // 커맨드 초기화
         commands.put(1, new LoginCommand(memberDao, sc));
         commands.put(2, new SignupCommand(memberDao, sc));
-        commands.put(8, new LsyOrderHistoryCommand(orderDao));
+        commands.put(8, new LsyOrderHistoryCommand(orderDao, sc));
         commands.put(9, new LogoutCommand());
          // 3~8번 기능은 추후 구현 예정 (현재는 가상 커맨드나 메시지 처리 가능)
     }
