@@ -22,6 +22,17 @@
     "remainingTime": 0
   },
   {
+    "memberId": "root",
+    "password": "root",
+    "email": "root",
+    "name": "root",
+    "phone": "root",
+    "address": "root",
+    "signupDate": "2026-05-28T15:55:12.5491773",
+    "lastLoginDate": "2026-05-28T15:55:25.3546956",
+    "remainingTime": 0
+  },
+  {
     "memberId": "user9",
     "password": "pw9",
     "email": "user9@kiosk.com",

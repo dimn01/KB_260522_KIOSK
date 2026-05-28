@@ -9,12 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-
 public class kioskController {
 
     private static final Scanner sc = new Scanner(System.in);
     //
-    // private static final MemberDao memberDao = new MockMemberDaoImpl(); // 기존 메모리 기반 저장소
+    // private static final MemberDao memberDao = new MockMemberDaoImpl(); // 기존 메모리
+    // 저장소
     private static final FoodOrderController foodOrderController = new FoodOrderController();
     private static final MemberDao memberDao = new JsonMemberDaoImpl(); // JSON 파일 기반 저장소로 변경
     private static final LsyOrderDao orderDao = new LsyJsonOrderDaoImpl();
@@ -30,14 +30,14 @@ public class kioskController {
         commands.put(5, new CartCommand(foodOrderController, sc));
         commands.put(6, new LsyOrderHistoryCommand(orderDao, sc));
         commands.put(9, new LogoutCommand());
-         // 3~8번 기능은 추후 구현 예정 (현재는 가상 커맨드나 메시지 처리 가능)
+        // 3~8번 기능은 추후 구현 예정 (현재는 가상 커맨드나 메시지 처리 가능)
     }
 
     public static void main(String[] args) {
         while (true) {
             // 사용자가 입력한 값 저장
             int choice = showMainMenu();
-            
+
             if (choice == 0) {
                 System.out.println("프로그램을 종료합니다.");
                 break;
@@ -50,7 +50,7 @@ public class kioskController {
                 if (choice != 1 && choice != 2 && !SessionManager.isLoggedIn()) {
                     System.out.println("\n[알림] 로그인이 필요한 서비스입니다.");
                 } else {
-                    command.execute(); //받아온 함수(커멘드) 실행
+                    command.execute(); // 받아온 함수(커멘드) 실행
                 }
             } else if (choice >= 7 && choice <= 8) {
                 System.out.println("해당 기능은 아직 구현되지 않았습니다.");
@@ -66,20 +66,22 @@ public class kioskController {
         System.out.println("          PC방 키오스크 시스템         ");
         if (SessionManager.isLoggedIn()) {
             System.out.println(" [ 로그인 중: " + SessionManager.getLoggedInMember().getName() + " 님 ]");
+            System.out.println("===================================");
+            System.out.println("3. 시간 충전");
+            System.out.println("4. 음식 주문");
+            System.out.println("5. 장바구니");
+            System.out.println("6. 주문내역 조회");
+            // System.out.println("6. 음식 조회");
+            // System.out.println("7. 음료 조회");
+            System.out.println("9. 로그아웃");
+            System.out.println("0. 종료");
         } else {
             System.out.println(" [ 로그인 필요 ]");
+            System.out.println("===================================");
+            System.out.println("1. 로그인");
+            System.out.println("2. 회원가입");
+            System.out.println("0. 종료");
         }
-        System.out.println("===================================");
-        System.out.println("1. 로그인");
-        System.out.println("2. 회원가입");
-        System.out.println("3. 시간 충전");
-        System.out.println("4. 음식 주문");
-        System.out.println("5. 장바구니");
-//        System.out.println("6. 음식 조회");
-//        System.out.println("7. 음료 조회");
-        System.out.println("6. 주문내역 조회");
-        System.out.println("9. 로그아웃");
-        System.out.println("0. 종료");
         System.out.println("===================================");
         System.out.print("선택: ");
 
