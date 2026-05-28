@@ -1,6 +1,6 @@
 package Kiosk.command;
 
-import Kiosk.controller.FoodOrderController;
+import Kiosk.FoodOrderController;
 import java.util.Scanner;
 
 public class CartCommand implements Command {
