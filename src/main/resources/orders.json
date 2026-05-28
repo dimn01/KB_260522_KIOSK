@@ -1,50 +1,17 @@
 [
   {
-    "orderId": "ORD-20240526-001",
+    "orderId": 1,
     "memberId": "user1",
-    "orderDate": "2024-05-26 14:30:00",
-    "totalPrice": 11500,
-    "items": [
-      {
-        "foodId": "R001",
-        "name": "신라면",
-        "quantity": 1,
-        "price": 4000
-      },
-      {
-        "foodId": "B001",
-        "name": "제육덮밥",
-        "quantity": 1,
-        "price": 7500
-      }
-    ]
+    "orderDate": "2024-05-26 14:30:00"
   },
   {
-    "orderId": "ORD-20240526-002",
+    "orderId": 2,
     "memberId": "user1",
-    "orderDate": "2024-05-26 16:45:10",
-    "totalPrice": 7000,
-    "items": [
-      {
-        "foodId": "D001",
-        "name": "아이스아메리카노",
-        "quantity": 2,
-        "price": 3500
-      }
-    ]
+    "orderDate": "2024-05-26 16:45:10"
   },
   {
-    "orderId": "ORD-20240526-003",
+    "orderId": 3,
     "memberId": "admin",
-    "orderDate": "2024-05-26 10:00:00",
-    "totalPrice": 4000,
-    "items": [
-      {
-        "foodId": "F001",
-        "name": "후라이드치킨",
-        "quantity": 1,
-        "price": 4000
-      }
-    ]
+    "orderDate": "2024-05-26 10:00:00"
   }
 ]
