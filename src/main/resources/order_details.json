@@ -1,0 +1,34 @@
+[
+  {
+    "orderDetailId": 1,
+    "orderId": 1,
+    "foodId": "R001",
+    "name": "신라면",
+    "quantity": 1,
+    "price": 4000
+  },
+  {
+    "orderDetailId": 2,
+    "orderId": 1,
+    "foodId": "B001",
+    "name": "제육덮밥",
+    "quantity": 1,
+    "price": 7500
+  },
+  {
+    "orderDetailId": 3,
+    "orderId": 2,
+    "foodId": "D001",
+    "name": "아이스아메리카노",
+    "quantity": 2,
+    "price": 3500
+  },
+  {
+    "orderDetailId": 4,
+    "orderId": 3,
+    "foodId": "F001",
+    "name": "후라이드치킨",
+    "quantity": 1,
+    "price": 4000
+  }
+]
