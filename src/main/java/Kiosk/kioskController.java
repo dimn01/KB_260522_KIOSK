@@ -2,8 +2,6 @@ package Kiosk;
 
 import Kiosk.command.*;
 import Kiosk.dao.MemberDao;
-import Kiosk.controller.FoodOrderController;
-import Kiosk.dao.MockMemberDaoImpl;
 import Kiosk.dao.JsonMemberDaoImpl;
 import Kiosk.dao.LsyOrderDao;
 import Kiosk.dao.LsyJsonOrderDaoImpl;
@@ -18,7 +16,6 @@ public class kioskController {
     //
     // private static final MemberDao memberDao = new MockMemberDaoImpl(); // 기존 메모리 기반 저장소
     private static final FoodOrderController foodOrderController = new FoodOrderController();
-
     private static final MemberDao memberDao = new JsonMemberDaoImpl(); // JSON 파일 기반 저장소로 변경
     private static final LsyOrderDao orderDao = new LsyJsonOrderDaoImpl();
     //
@@ -31,7 +28,7 @@ public class kioskController {
         commands.put(3, new TimeChargeCommand(memberDao, sc));
         commands.put(4, new FoodOrderCommand(foodOrderController, sc));
         commands.put(5, new CartCommand(foodOrderController, sc));
-        commands.put(8, new LsyOrderHistoryCommand(orderDao, sc));
+        commands.put(6, new LsyOrderHistoryCommand(orderDao, sc));
         commands.put(9, new LogoutCommand());
          // 3~8번 기능은 추후 구현 예정 (현재는 가상 커맨드나 메시지 처리 가능)
     }
@@ -49,8 +46,13 @@ public class kioskController {
             // 선택한 기능 command(로그인, 로그아웃 등 기능 함수로) 불러오기
             Command command = commands.get(choice);
             if (command != null) {
-                command.execute(); //받아온 함수(커멘드) 실행
-            } else if (choice >= 6 && choice <= 7) {
+                // 로그인(1), 회원가입(2)을 제외한 모든 기능은 로그인 상태여야 함
+                if (choice != 1 && choice != 2 && !SessionManager.isLoggedIn()) {
+                    System.out.println("\n[알림] 로그인이 필요한 서비스입니다.");
+                } else {
+                    command.execute(); //받아온 함수(커멘드) 실행
+                }
+            } else if (choice >= 7 && choice <= 8) {
                 System.out.println("해당 기능은 아직 구현되지 않았습니다.");
             } else {
                 System.out.println("잘못된 선택입니다. 다시 입력해주세요.");
@@ -73,9 +75,9 @@ public class kioskController {
         System.out.println("3. 시간 충전");
         System.out.println("4. 음식 주문");
         System.out.println("5. 장바구니");
-        System.out.println("6. 음식 조회");
-        System.out.println("7. 음료 조회");
-        System.out.println("8. 주문내역 조회");
+//        System.out.println("6. 음식 조회");
+//        System.out.println("7. 음료 조회");
+        System.out.println("6. 주문내역 조회");
         System.out.println("9. 로그아웃");
         System.out.println("0. 종료");
         System.out.println("===================================");

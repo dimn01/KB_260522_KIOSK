@@ -1,7 +1,7 @@
-package Kiosk.controller;
+package Kiosk;
 
 import Kiosk.domain.Category;
-import Kiosk.domain.Product;
+import Kiosk.domain.Food;
 import Kiosk.domain.CartItem;
 
 import Kiosk.service.FoodOrderService;
@@ -25,7 +25,7 @@ public class FoodOrderController {
             // Service를 통해 가상 DB에 등록된 모든 카테고리를 동적으로 가져옴
             List<Category> categories = foodOrderService.getAllCategories();
             for (int i = 0; i < categories.size(); i++) {
-                System.out.println((i + 1) + ". " + categories.get(i).getName());
+                System.out.println((i + 1) + ". " + categories.get(i).getCategoryName());
             }
             System.out.println("0. 메인 메뉴로 돌아가기");
             System.out.println("======================================");
@@ -37,7 +37,7 @@ public class FoodOrderController {
             if (choice > 0 && choice <= categories.size()) {
                 Category selectedCategory = categories.get(choice - 1);
                 // 선택된 카테고리의 고유 ID(C1 등)를 넘겨 세부 메뉴판을 띄움
-                showCategoryMenu(sc, selectedCategory.getId(), selectedCategory.getName());
+                showCategoryMenu(sc, selectedCategory.getId(), selectedCategory.getCategoryName());
             } else {
                 System.out.println("잘못된 입력입니다.");
             }
@@ -51,7 +51,7 @@ public class FoodOrderController {
         System.out.println("======================================");
 
         // 카테고리 ID(C1)에 소속된 음식들만 매핑 서치
-        List<Product> filtered = foodOrderService.getProductsByCategoryId(categoryId);
+        List<Food> filtered = foodOrderService.getProductsByCategoryId(categoryId);
 
         if (filtered.isEmpty()) {
             System.out.println("   준비된 상품이 없습니다. (현재 재고 준비중)");
@@ -62,7 +62,7 @@ public class FoodOrderController {
         }
 
         for (int i = 0; i < filtered.size(); i++) {
-            Product p = filtered.get(i);
+            Food p = filtered.get(i);
             // 설명(description) 컬럼 출력 연출 추가
             System.out.print((i + 1) + ". " + p.getName() + " (" + p.getPrice() + "원) - " + p.getDescription() + " | ");
             if (p.getStock() == 0) {
@@ -79,12 +79,12 @@ public class FoodOrderController {
         if (choice == 0) return;
 
         if (choice > 0 && choice <= filtered.size()) {
-            Product selected = filtered.get(choice - 1);
+            Food selected = filtered.get(choice - 1);
             System.out.print("수량을 입력하세요: ");
             int qty = sc.nextInt();
 
             try {
-                foodOrderService.addFoodToCart(selected.getId(), qty);
+                foodOrderService.addFoodToCart(selected.getFoodId(), qty);
                 System.out.println("\n장바구니에 정상 등록되었습니다.");
             } catch (IllegalArgumentException e) {
                 System.out.println("\n[오류] " + e.getMessage());
@@ -114,7 +114,7 @@ public class FoodOrderController {
 
             int displayNo = 1;
             for (CartItem item : currentCart) {
-                Product p = foodOrderService.getProductById(item.getProductId());
+                Food p = foodOrderService.getProductById(item.getProductId());
                 int itemTotal = p.getPrice() * item.getQuantity();
                 System.out.println(displayNo + ". " + p.getName() + " x " + item.getQuantity() + "개 : " + itemTotal + "원");
                 displayNo++;
