@@ -3,6 +3,8 @@ package Kiosk;
 import Kiosk.command.*;
 import Kiosk.dao.MemberDao;
 import Kiosk.dao.JsonMemberDaoImpl;
+import Kiosk.dao.FoodDao;
+import Kiosk.dao.JsonFoodDaoImpl;
 import Kiosk.dao.LsyOrderDao;
 import Kiosk.dao.LsyJsonOrderDaoImpl;
 import java.util.HashMap;
@@ -18,6 +20,7 @@ public class kioskController {
     private static final FoodOrderController foodOrderController = new FoodOrderController();
     private static final MemberDao memberDao = new JsonMemberDaoImpl(); // JSON 파일 기반 저장소로 변경
     private static final LsyOrderDao orderDao = new LsyJsonOrderDaoImpl();
+    private static final FoodDao foodDao = new JsonFoodDaoImpl(); // 음식 데이터 DAO 추가
     //
     private static final Map<Integer, Command> commands = new HashMap<>();
 
@@ -66,20 +69,19 @@ public class kioskController {
         System.out.println("          PC방 키오스크 시스템         ");
         if (SessionManager.isLoggedIn()) {
             System.out.println(" [ 로그인 중: " + SessionManager.getLoggedInMember().getName() + " 님 ]");
+            System.out.println("===================================");
+            System.out.println("3. 시간 충전");
+            System.out.println("4. 음식 주문");
+            System.out.println("5. 장바구니");
+            System.out.println("6. 주문내역 조회");
+            System.out.println("9. 로그아웃");
         } else {
             System.out.println(" [ 로그인 필요 ]");
+            System.out.println("===================================");
+            System.out.println("1. 로그인");
+            System.out.println("2. 회원가입");
+            System.out.println("0. 종료");
         }
-        System.out.println("===================================");
-        System.out.println("1. 로그인");
-        System.out.println("2. 회원가입");
-        System.out.println("3. 시간 충전");
-        System.out.println("4. 음식 주문");
-        System.out.println("5. 장바구니");
-//        System.out.println("6. 음식 조회");
-//        System.out.println("7. 음료 조회");
-        System.out.println("6. 주문내역 조회");
-        System.out.println("9. 로그아웃");
-        System.out.println("0. 종료");
         System.out.println("===================================");
         System.out.print("선택: ");
 

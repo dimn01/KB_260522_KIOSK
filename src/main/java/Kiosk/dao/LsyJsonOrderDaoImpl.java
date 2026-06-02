@@ -22,6 +22,7 @@ public class LsyJsonOrderDaoImpl implements LsyOrderDao {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public LsyJsonOrderDaoImpl() {
+        // LocalDateTime 처리를 위한 Gson 설정
         this.gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (src, typeOfSrc, context) ->
                         new JsonPrimitive(src.format(formatter)))
@@ -35,29 +36,29 @@ public class LsyJsonOrderDaoImpl implements LsyOrderDao {
     private void loadOrders() {
         File ordersFile = new File(ORDERS_FILE);
         File detailsFile = new File(DETAILS_FILE);
-        
+
         if (!ordersFile.exists()) return;
 
         try (Reader orderReader = new FileReader(ordersFile)) {
             Type orderListType = new TypeToken<List<LsyOrder>>() {}.getType();
             List<LsyOrder> loadedOrders = gson.fromJson(orderReader, orderListType);
-            
+
             if (loadedOrders != null) {
                 this.orders = loadedOrders;
-                
+
                 // 상세 내역 로드 및 연결 (JOIN 시뮬레이션)
                 if (detailsFile.exists()) {
                     try (Reader detailReader = new FileReader(detailsFile)) {
                         Type detailListType = new TypeToken<List<LsyOrderItem>>() {}.getType();
                         List<LsyOrderItem> allItems = gson.fromJson(detailReader, detailListType);
-                        
+
                         if (allItems != null) {
                             for (LsyOrder order : orders) {
                                 List<LsyOrderItem> orderItems = allItems.stream()
                                         .filter(item -> item.getOrderId() == order.getOrderId())
                                         .collect(Collectors.toList());
                                 order.setItems(orderItems);
-                                
+
                                 // 총액 계산 (DB에 totalPrice가 없으므로 로드 시 계산)
                                 int total = orderItems.stream()
                                         .mapToInt(item -> item.getPrice() * item.getQuantity())
@@ -76,8 +77,8 @@ public class LsyJsonOrderDaoImpl implements LsyOrderDao {
     private void saveOrders() {
         try (Writer orderWriter = new FileWriter(ORDERS_FILE);
              Writer detailWriter = new FileWriter(DETAILS_FILE)) {
-            
-            // 1. ORDERS 테이블 저장 (items 제외하고 저장하기 위해 별도 처리하거나, 
+
+            // 1. ORDERS 테이블 저장 (items 제외하고 저장하기 위해 별도 처리하거나,
             // Transient 필드를 사용해야 하지만 여기서는 단순화를 위해 리스트를 가공)
             List<LsyOrder> ordersToSave = orders.stream().map(o -> {
                 LsyOrder copy = new LsyOrder(o.getOrderId(), o.getMemberId(), o.getOrderDate(), 0, null);
@@ -91,7 +92,7 @@ public class LsyJsonOrderDaoImpl implements LsyOrderDao {
                     .flatMap(o -> o.getItems().stream())
                     .collect(Collectors.toList());
             gson.toJson(allItems, detailWriter);
-            
+
         } catch (IOException e) {
             System.err.println("[LSY JSON] 주문 데이터를 저장하는 중 오류 발생: " + e.getMessage());
         }
@@ -114,7 +115,7 @@ public class LsyJsonOrderDaoImpl implements LsyOrderDao {
                 .mapToInt(LsyOrderItem::getOrderDetailId)
                 .max()
                 .orElse(0);
-        
+
         if (order.getItems() != null) {
             for (LsyOrderItem item : order.getItems()) {
                 item.setOrderId(order.getOrderId());
