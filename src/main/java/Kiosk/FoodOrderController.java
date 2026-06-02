@@ -30,7 +30,7 @@ public class FoodOrderController {
             System.out.println("c. 장바구니 보기");
             System.out.println("0. 메인 메뉴로 돌아가기");
             System.out.println("======================================");
-            System.out.print("선택: ");
+            System.out.print("원하는 카테고리 번호를 입력하세요: ");
 
             String input = sc.next();
             if (input.equalsIgnoreCase("c")) {
