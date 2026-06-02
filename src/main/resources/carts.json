@@ -4,5 +4,11 @@
     "memberId": "user1",
     "foodId": "S003",
     "quantity": 1
+  },
+  {
+    "cartId": "CART_1780385652326",
+    "memberId": "root",
+    "foodId": "B001",
+    "quantity": 20
   }
 ]
