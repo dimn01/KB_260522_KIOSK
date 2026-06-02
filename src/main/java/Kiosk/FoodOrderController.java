@@ -27,19 +27,30 @@ public class FoodOrderController {
             for (int i = 0; i < categories.size(); i++) {
                 System.out.println((i + 1) + ". " + categories.get(i).getCategoryName());
             }
+            System.out.println("c. 장바구니 보기");
             System.out.println("0. 메인 메뉴로 돌아가기");
             System.out.println("======================================");
-            System.out.print("원하는 카테고리 번호를 입력하세요: ");
+            System.out.print("선택: ");
 
-            int choice = sc.nextInt();
-            if (choice == 0) break;
+            String input = sc.next();
+            if (input.equalsIgnoreCase("c")) {
+                openCartMenu(sc);
+                continue;
+            }
 
-            if (choice > 0 && choice <= categories.size()) {
-                Category selectedCategory = categories.get(choice - 1);
-                // 선택된 카테고리의 고유 ID(C1 등)를 넘겨 세부 메뉴판을 띄움
-                showCategoryMenu(sc, selectedCategory.getId(), selectedCategory.getCategoryName());
-            } else {
-                System.out.println("잘못된 입력입니다.");
+            try {
+                int choice = Integer.parseInt(input);
+                if (choice == 0) break;
+
+                if (choice > 0 && choice <= categories.size()) {
+                    Category selectedCategory = categories.get(choice - 1);
+                    // 선택된 카테고리의 고유 ID(C1 등)를 넘겨 세부 메뉴판을 띄움
+                    showCategoryMenu(sc, selectedCategory.getId(), selectedCategory.getCategoryName());
+                } else {
+                    System.out.println("잘못된 입력입니다.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("숫자 또는 'c'를 입력해주세요.");
             }
         }
     }

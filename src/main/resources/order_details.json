@@ -30,5 +30,13 @@
     "name": "후라이드치킨",
     "quantity": 1,
     "price": 4000
+  },
+  {
+    "orderDetailId": 5,
+    "orderId": 4,
+    "foodId": "S003",
+    "name": "허니버터칩",
+    "quantity": 1,
+    "price": 1200
   }
 ]
