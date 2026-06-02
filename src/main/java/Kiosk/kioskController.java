@@ -16,7 +16,7 @@ public class kioskController {
     private static final FoodOrderController foodOrderController = new FoodOrderController();
     private static final MemberDao memberDao = new JdbcMemberDaoImpl(); // JSON 파일 기반 저장소로 변경
     private static final LsyOrderDao orderDao = new LsyJsonOrderDaoImpl();
-    private static final FoodDao foodDao = new JsonFoodDaoImpl(); // 음식 데이터 DAO 추가
+    private static final FoodDao foodDao = new MysqlFoodDaoImpl(); // 음식 데이터 DAO 추가
     //
     private static final Map<Integer, Command> commands = new HashMap<>();
 
