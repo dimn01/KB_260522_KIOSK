@@ -38,5 +38,21 @@
     "name": "허니버터칩",
     "quantity": 1,
     "price": 1200
+  },
+  {
+    "orderDetailId": 6,
+    "orderId": 5,
+    "foodId": "B001",
+    "name": "제육덮밥",
+    "quantity": 30,
+    "price": 7500
+  },
+  {
+    "orderDetailId": 7,
+    "orderId": 5,
+    "foodId": "D002",
+    "name": "콜라",
+    "quantity": 2,
+    "price": 2000
   }
 ]

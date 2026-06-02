@@ -15,6 +15,8 @@ public class PcRoomLauncher {
             } catch (Exception e) {
                 System.err.println("[오류] 키오스크 실행 중 문제가 발생했습니다: " + e.getMessage());
                 e.printStackTrace();
+            } finally {
+                System.exit(0); // 기존 코드 수정 없이 백그라운드 스레드 종료 시 메인 윈도우 및 JVM 전체 종료
             }
         });
     }
