@@ -2,7 +2,7 @@ package Kiosk.service;
 
 import Kiosk.SessionManager;
 import Kiosk.dao.FoodDao;
-import Kiosk.dao.JsonFoodDaoImpl;
+import Kiosk.dao.MysqlFoodDaoImpl;
 import Kiosk.dao.CartDao;
 import Kiosk.dao.JsonCartDaoImpl;
 import Kiosk.dao.LsyOrderDao;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class FoodOrderService {
 
-    private final FoodDao foodDao = new JsonFoodDaoImpl();
+    private final FoodDao foodDao = new MysqlFoodDaoImpl();
     private final CartDao cartDao = new JsonCartDaoImpl();
     private final LsyOrderDao orderDao = new LsyJsonOrderDaoImpl();
     private long lastOrderTime = 0;
