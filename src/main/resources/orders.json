@@ -2,16 +2,25 @@
   {
     "orderId": 1,
     "memberId": "user1",
-    "orderDate": "2024-05-26 14:30:00"
+    "orderDate": "2024-05-26 14:30:00",
+    "totalPrice": 0
   },
   {
     "orderId": 2,
     "memberId": "user1",
-    "orderDate": "2024-05-26 16:45:10"
+    "orderDate": "2024-05-26 16:45:10",
+    "totalPrice": 0
   },
   {
     "orderId": 3,
     "memberId": "admin",
-    "orderDate": "2024-05-26 10:00:00"
+    "orderDate": "2024-05-26 10:00:00",
+    "totalPrice": 0
+  },
+  {
+    "orderId": 4,
+    "memberId": "user1",
+    "orderDate": "2026-06-02 15:45:50",
+    "totalPrice": 0
   }
 ]
