@@ -5,16 +5,23 @@ import Kiosk.dao.FoodDao;
 import Kiosk.dao.JsonFoodDaoImpl;
 import Kiosk.dao.CartDao;
 import Kiosk.dao.JsonCartDaoImpl;
+import Kiosk.dao.LsyOrderDao;
+import Kiosk.dao.LsyJsonOrderDaoImpl;
 import Kiosk.domain.Category;
 import Kiosk.domain.Food;
 import Kiosk.domain.CartItem;
+import Kiosk.domain.LsyOrder;
+import Kiosk.domain.LsyOrderItem;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FoodOrderService {
 
     private final FoodDao foodDao = new JsonFoodDaoImpl();
     private final CartDao cartDao = new JsonCartDaoImpl();
+    private final LsyOrderDao orderDao = new LsyJsonOrderDaoImpl();
     private long lastOrderTime = 0;
 
     public List<Category> getAllCategories() {
@@ -108,12 +115,26 @@ public class FoodOrderService {
     public void confirmPayment() {
         String memberId = SessionManager.getLoggedInMember().getMemberId();
         List<CartItem> cart = cartDao.findAllByMemberId(memberId);
+
+        List<LsyOrderItem> orderItems = new ArrayList<>();
+        int totalPrice = 0;
+
         for (CartItem item : cart) {
             Food p = foodDao.findById(item.getFoodId());
             if (p != null) {
+                // 주문 상세 내역 생성 (orderDetailId와 orderId는 DAO에서 자동 부여됨)
+                orderItems.add(new LsyOrderItem(0, 0, p.getFoodId(), p.getName(), item.getQuantity(), p.getPrice()));
+                totalPrice += p.getPrice() * item.getQuantity();
+
+                // 재고 차감
                 foodDao.updateFoodStock(p.getFoodId(), -item.getQuantity());
             }
         }
+
+        // 전체 주문 저장
+        LsyOrder order = new LsyOrder(0, memberId, LocalDateTime.now(), totalPrice, orderItems);
+        orderDao.save(order);
+
         lastOrderTime = System.currentTimeMillis();
         cartDao.deleteByMemberId(memberId);
     }
