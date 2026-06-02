@@ -16,7 +16,7 @@ public class MysqlFoodDaoImpl implements FoodDao {
     @Override
     public List<Food> findAll() {
         List<Food> list = new ArrayList<>();
-        String sql = "SELECT food_id, category_id, name, price, stock, description FROM food";
+        String sql = "SELECT foodId, categoryId, name, price, stock, description FROM FOODS";
         Connection conn = JDBCUtil.getConnection();
         if (conn == null) {
             System.err.println("[MySQL DB 오류] Connection 객체가 null입니다.");
@@ -26,8 +26,8 @@ public class MysqlFoodDaoImpl implements FoodDao {
              ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 list.add(new Food(
-                        rs.getString("food_id"),
-                        rs.getString("category_id"),
+                        rs.getString("foodId"),
+                        rs.getString("categoryId"),
                         rs.getString("name"),
                         rs.getInt("price"),
                         rs.getInt("stock"),
@@ -43,7 +43,7 @@ public class MysqlFoodDaoImpl implements FoodDao {
 
     @Override
     public Food findById(String foodId) {
-        String sql = "SELECT food_id, category_id, name, price, stock, description FROM food WHERE food_id = ?";
+        String sql = "SELECT foodId, categoryId, name, price, stock, description FROM FOODS WHERE foodId = ?";
         Connection conn = JDBCUtil.getConnection();
         if (conn == null) {
             System.err.println("[MySQL DB 오류] Connection 객체가 null입니다.");
@@ -54,8 +54,8 @@ public class MysqlFoodDaoImpl implements FoodDao {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     return new Food(
-                            rs.getString("food_id"),
-                            rs.getString("category_id"),
+                            rs.getString("foodId"),
+                            rs.getString("categoryId"),
                             rs.getString("name"),
                             rs.getInt("price"),
                             rs.getInt("stock"),
@@ -73,7 +73,7 @@ public class MysqlFoodDaoImpl implements FoodDao {
     @Override
     public List<Food> findByCategoryId(String categoryId) {
         List<Food> list = new ArrayList<>();
-        String sql = "SELECT food_id, category_id, name, price, stock, description FROM food WHERE category_id = ?";
+        String sql = "SELECT foodId, categoryId, name, price, stock, description FROM FOODS WHERE categoryId = ?";
         Connection conn = JDBCUtil.getConnection();
         if (conn == null) {
             System.err.println("[MySQL DB 오류] Connection 객체가 null입니다.");
@@ -84,8 +84,8 @@ public class MysqlFoodDaoImpl implements FoodDao {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     list.add(new Food(
-                            rs.getString("food_id"),
-                            rs.getString("category_id"),
+                            rs.getString("foodId"),
+                            rs.getString("categoryId"),
                             rs.getString("name"),
                             rs.getInt("price"),
                             rs.getInt("stock"),
@@ -103,7 +103,7 @@ public class MysqlFoodDaoImpl implements FoodDao {
     @Override
     public List<Category> findAllCategories() {
         List<Category> list = new ArrayList<>();
-        String sql = "SELECT category_id, category_name FROM category";
+        String sql = "SELECT categoryId, categoryName FROM CATEGORY";
         Connection conn = JDBCUtil.getConnection();
         if (conn == null) {
             System.err.println("[MySQL DB 오류] Connection 객체가 null입니다.");
@@ -113,8 +113,8 @@ public class MysqlFoodDaoImpl implements FoodDao {
              ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 list.add(new Category(
-                        rs.getString("category_id"),
-                        rs.getString("category_name")
+                        rs.getString("categoryId"),
+                        rs.getString("categoryName")
                 ));
             }
         } catch (SQLException e) {
@@ -126,7 +126,7 @@ public class MysqlFoodDaoImpl implements FoodDao {
 
     @Override
     public void updateFoodStock(String foodId, int quantity) {
-        String sql = "UPDATE food SET stock = stock + ? WHERE food_id = ?";
+        String sql = "UPDATE FOODS SET stock = stock + ? WHERE foodId = ?";
         Connection conn = JDBCUtil.getConnection();
         if (conn == null) {
             System.err.println("[MySQL DB 오류] Connection 객체가 null입니다.");
