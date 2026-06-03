@@ -6,7 +6,7 @@ import Kiosk.dao.MysqlFoodDaoImpl;
 import Kiosk.dao.CartDao;
 import Kiosk.dao.JsonCartDaoImpl;
 import Kiosk.dao.LsyOrderDao;
-import Kiosk.dao.LsyJsonOrderDaoImpl;
+import Kiosk.dao.MysqlOrderDaoImpl;
 import Kiosk.domain.Category;
 import Kiosk.domain.Food;
 import Kiosk.domain.CartItem;
@@ -21,7 +21,7 @@ public class FoodOrderService {
 
     private final FoodDao foodDao = new MysqlFoodDaoImpl();
     private final CartDao cartDao = new JsonCartDaoImpl();
-    private final LsyOrderDao orderDao = new LsyJsonOrderDaoImpl();
+    private final LsyOrderDao orderDao = new MysqlOrderDaoImpl();
     private long lastOrderTime = 0;
 
     public List<Category> getAllCategories() {
