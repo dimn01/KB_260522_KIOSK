@@ -1,12 +1,7 @@
 package Kiosk;
 
 import Kiosk.command.*;
-import Kiosk.dao.MemberDao;
-import Kiosk.dao.JsonMemberDaoImpl;
-import Kiosk.dao.FoodDao;
-import Kiosk.dao.MysqlFoodDaoImpl;
-import Kiosk.dao.LsyOrderDao;
-import Kiosk.dao.MysqlOrderDaoImpl;
+import Kiosk.dao.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +14,7 @@ public class kioskController {
     //
     // private static final MemberDao memberDao = new MockMemberDaoImpl(); // 기존 메모리 기반 저장소
     private static final FoodOrderController foodOrderController = new FoodOrderController();
-    private static final MemberDao memberDao = new JsonMemberDaoImpl(); // JSON 파일 기반 저장소로 변경
+    private static final MemberDao memberDao = new JdbcMemberDaoImpl(); // JSON 파일 기반 저장소로 변경
     private static final LsyOrderDao orderDao = new MysqlOrderDaoImpl();
     private static final FoodDao foodDao = new MysqlFoodDaoImpl(); // 음식 데이터 DAO 추가
     //
