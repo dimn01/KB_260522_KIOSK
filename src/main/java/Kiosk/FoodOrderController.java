@@ -50,7 +50,7 @@ public class FoodOrderController {
                     System.out.println("잘못된 입력입니다.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("숫자 또는 'c'를 입력해주세요.");
+                System.out.println("잘못된 입력입니다.");
             }
         }
     }
@@ -93,12 +93,15 @@ public class FoodOrderController {
             Food selected = filtered.get(choice - 1);
             System.out.print("수량을 입력하세요: ");
             int qty = sc.nextInt();
-
-            try {
-                foodOrderService.addFoodToCart(selected.getFoodId(), qty);
-                System.out.println("\n장바구니에 정상 등록되었습니다.");
-            } catch (IllegalArgumentException e) {
-                System.out.println("\n[오류] " + e.getMessage());
+            if (qty > 0) {
+                try {
+                    foodOrderService.addFoodToCart(selected.getFoodId(), qty);
+                    System.out.println("\n장바구니에 정상 등록되었습니다.");
+                } catch (IllegalArgumentException e) {
+                    System.out.println("\n[오류] " + e.getMessage());
+                }
+            } else {
+                System.out.println("수량을 다시 확인해 주세요.");
             }
         } else {
             System.out.println("잘못된 선택입니다.");

@@ -50,8 +50,12 @@ public class TimeChargeCommand implements Command {
                 // 충전된 시간을 데이터에 반영
                 memberDao.updateRemainingTime(member.getMemberId(), additionalMinutes);
                 
+                // 세션 정보 갱신 (DB에서 최신 정보를 다시 읽어옴)
+                Member updatedMember = memberDao.getMemberById(member.getMemberId());
+                SessionManager.login(updatedMember);
+                
                 System.out.println(choice + "시간이 충전되었습니다.");
-                System.out.println("현재 총 잔여 시간: " + member.getRemainingTime() + "분");
+                System.out.println("현재 총 잔여 시간: " + updatedMember.getRemainingTime() + "분");
             } else {
                 System.out.println("잘못된 선택입니다.");
             }
