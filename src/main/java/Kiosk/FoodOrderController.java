@@ -68,7 +68,11 @@ public class FoodOrderController {
             System.out.println("   준비된 상품이 없습니다. (현재 재고 준비중)");
             System.out.println("0. 이전으로");
             System.out.println("======================================");
-            sc.nextInt();
+            try {
+                sc.nextInt();
+            } catch (Exception e) {
+                sc.nextLine();
+            }
             return;
         }
 
@@ -85,14 +89,28 @@ public class FoodOrderController {
         System.out.println("0. 이전으로");
         System.out.println("======================================");
         System.out.print("장바구니에 담을 메뉴의 번호 선택: ");
-        int choice = sc.nextInt();
+        int choice;
+        try {
+            choice = sc.nextInt();
+        } catch (Exception e) {
+            System.out.println("잘못된 선택입니다.");
+            sc.nextLine();
+            return;
+        }
 
         if (choice == 0) return;
 
         if (choice > 0 && choice <= filtered.size()) {
             Food selected = filtered.get(choice - 1);
             System.out.print("수량을 입력하세요: ");
-            int qty = sc.nextInt();
+            int qty;
+            try {
+                qty = sc.nextInt();
+            } catch (Exception e) {
+                System.out.println("수량을 다시 확인해 주세요.");
+                sc.nextLine();
+                return;
+            }
             if (qty > 0) {
                 try {
                     foodOrderService.addFoodToCart(selected.getFoodId(), qty);
@@ -122,7 +140,11 @@ public class FoodOrderController {
                 System.out.println("0. 메인 메뉴로 돌아가기");
                 System.out.println("--------------------------------------");
                 System.out.print("번호를 선택하세요: ");
-                if (sc.nextInt() == 0) break;
+                try {
+                    if (sc.nextInt() == 0) break;
+                } catch (Exception e) {
+                    sc.nextLine();
+                }
                 continue;
             }
 
@@ -145,16 +167,29 @@ public class FoodOrderController {
             System.out.println("======================================");
             System.out.print("원하는 기능의 번호를 입력하세요: ");
 
-            int action = sc.nextInt();
+            int action;
+            try {
+                action = sc.nextInt();
+            } catch (Exception e) {
+                sc.nextLine();
+                continue;
+            }
             if (action == 0) break;
 
             if (action == 1) {
                 if (handleCheckout(sc, totalPrice)) break;
             } else if (action == 2) {
                 System.out.print("수량을 조정할 항목의 번호 입력: ");
-                int editIdx = sc.nextInt();
-                System.out.print("새로운 수량 입력: ");
-                int newQty = sc.nextInt();
+                int editIdx;
+                int newQty;
+                try {
+                    editIdx = sc.nextInt();
+                    System.out.print("새로운 수량 입력: ");
+                    newQty = sc.nextInt();
+                } catch (Exception e) {
+                    sc.nextLine();
+                    continue;
+                }
                 try {
                     foodOrderService.updateCartItemQty(editIdx - 1, newQty);
                     System.out.println("수량이 수정되었습니다.");
@@ -163,7 +198,13 @@ public class FoodOrderController {
                 }
             } else if (action == 3) {
                 System.out.print("삭제할 항목의 번호 입력: ");
-                int removeIdx = sc.nextInt();
+                int removeIdx;
+                try {
+                    removeIdx = sc.nextInt();
+                } catch (Exception e) {
+                    sc.nextLine();
+                    continue;
+                }
                 try {
                     foodOrderService.removeCartItem(removeIdx - 1);
                     System.out.println("장바구니에서 제거되었습니다.");
@@ -187,7 +228,14 @@ public class FoodOrderController {
             System.out.println("0. 결제 취소");
             System.out.println("======================================");
             System.out.print("번호 선택: ");
-            int payChoice = sc.nextInt();
+            int payChoice;
+            try {
+                payChoice = sc.nextInt();
+            } catch (Exception e) {
+                System.out.println("\n결제가 취소되었습니다.");
+                sc.nextLine();
+                return false;
+            }
 
             if (payChoice == 1 || payChoice == 2) {
                 String method = (payChoice == 1) ? "신용카드" : "카카오페이";
