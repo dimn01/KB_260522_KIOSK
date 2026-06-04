@@ -125,7 +125,7 @@ public class PcRoomSystem {
                         System.out.println("1. 식사류 조회 (라면, 볶음밥 등)");
                         System.out.println("2. 음료류 조회 (콜라, 아이스커피 등)");
                         System.out.println("3. 장바구니 보기 및 결제");
-                        System.out.println("4. 이전 메뉴로 돌아가기 (PC 메인으로)");
+                        System.out.println("0. 이전 메뉴로 돌아가기 (PC 메인으로)");
                         System.out.println("======================================");
                         System.out.print("원하는 기능의 번호를 입력하세요: ");
                         
@@ -147,7 +147,7 @@ public class PcRoomSystem {
                             System.out.println(" 총 결제 금액      :  8,000원");
                             System.out.println("--------------------------------------");
                             System.out.println("1. 결제하기 (남은시간/포인트 차감)");
-                            System.out.println("2. 취소하고 먹거리 메뉴로 돌아가기");
+                            System.out.println("0. 취소하고 먹거리 메뉴로 돌아가기");
                             System.out.println("======================================");
                             System.out.print("원하는 기능의 번호를 입력하세요: ");
                             
@@ -162,7 +162,7 @@ public class PcRoomSystem {
                                 System.out.println("\n↩️ 결제를 취소했습니다. 먹거리 주문 메뉴로 돌아갑니다.");
                                 delay();
                             }
-                        } else if (foodMenu == 4) {
+                        } else if (foodMenu == 0) {
                             System.out.println("\n↩️ [PC 메인 화면으로 돌아갑니다.]");
                             delay();
                             break; 
