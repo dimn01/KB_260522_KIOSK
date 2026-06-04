@@ -1,27 +1,28 @@
 package Kiosk.service;
 
-import Kiosk.SessionManager;
-import Kiosk.dao.FoodDao;
-import Kiosk.dao.MysqlFoodDaoImpl;
-import Kiosk.dao.CartDao;
-import Kiosk.dao.JsonCartDaoImpl;
-import Kiosk.dao.LsyOrderDao;
-import Kiosk.dao.LsyJsonOrderDaoImpl;
-import Kiosk.domain.Category;
-import Kiosk.domain.Food;
-import Kiosk.domain.CartItem;
-import Kiosk.domain.LsyOrder;
-import Kiosk.domain.LsyOrderItem;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import Kiosk.SessionManager;
+import Kiosk.dao.CartDao;
+import Kiosk.dao.FoodDao;
+import Kiosk.dao.JdbcCartDao;
+import Kiosk.dao.LsyJsonOrderDaoImpl;
+import Kiosk.dao.LsyOrderDao;
+import Kiosk.dao.MysqlFoodDaoImpl;
+import Kiosk.dao.MysqlOrderDaoImpl;
+import Kiosk.domain.CartItem;
+import Kiosk.domain.Category;
+import Kiosk.domain.Food;
+import Kiosk.domain.LsyOrder;
+import Kiosk.domain.LsyOrderItem;
+
 public class FoodOrderService {
 
     private final FoodDao foodDao = new MysqlFoodDaoImpl();
-    private final CartDao cartDao = new JsonCartDaoImpl();
-    private final LsyOrderDao orderDao = new LsyJsonOrderDaoImpl();
+    private final CartDao cartDao = new JdbcCartDao();
+    private final LsyOrderDao orderDao = new MysqlOrderDaoImpl();
     private long lastOrderTime = 0;
 
     public List<Category> getAllCategories() {

@@ -1,16 +1,15 @@
--- 음식 테이블 생성
-CREATE TABLE IF NOT EXISTS food (
-    food_id VARCHAR(50) PRIMARY KEY,
-    category_id VARCHAR(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS FOODS (
+    foodId VARCHAR(20) NOT NULL,
+    categoryId VARCHAR(20) NOT NULL,
     name VARCHAR(100) NOT NULL,
     price INT NOT NULL,
     stock INT NOT NULL,
     description VARCHAR(255),
-    FOREIGN KEY (category_id) REFERENCES category(category_id) ON UPDATE CASCADE ON DELETE RESTRICT
+    PRIMARY KEY (foodId),
+    FOREIGN KEY (categoryId) REFERENCES CATEGORY(categoryId)
 );
 
--- 초기 음식 데이터 삽입
-INSERT INTO food (food_id, category_id, name, price, stock, description) VALUES
+INSERT INTO FOODS (foodId, categoryId, name, price, stock, description) VALUES
 ('R001', 'C1', '신라면', 4000, 99, '기본 신라면'),
 ('R002', 'C1', '진라면(매운맛)', 4000, 100, '칼칼한 진라면'),
 ('R003', 'C1', '까르보불닭볶음면', 5000, 80, '매운 까르보나라'),
@@ -24,7 +23,7 @@ INSERT INTO food (food_id, category_id, name, price, stock, description) VALUES
 ('S002', 'C4', '새우깡', 1500, 50, '고소한 새우깡'),
 ('S003', 'C4', '허니버터칩', 1200, 60, '달콤한 꿀이 곁들어진 과자')
 ON DUPLICATE KEY UPDATE 
-    category_id = VALUES(category_id),
+    categoryId = VALUES(categoryId),
     name = VALUES(name),
     price = VALUES(price),
     stock = VALUES(stock),
