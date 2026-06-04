@@ -16,8 +16,8 @@ public class kioskController {
     // private static final MemberDao memberDao = new MockMemberDaoImpl(); // 기존 메모리 기반 저장소
     private static final FoodOrderController foodOrderController = new FoodOrderController();
     private static final MemberDao memberDao = new JdbcMemberDaoImpl(); // JSON 파일 기반 저장소로 변경
-    private static final LsyOrderDao orderDao = new MysqlOrderDaoImpl();
-    private static final FoodDao foodDao = new MysqlFoodDaoImpl(); // 음식 데이터 DAO 추가
+    private static final LsyOrderDao orderDao = new JdbcOrderDaoImpl();
+    private static final FoodDao foodDao = new JdbcFoodDaoImpl(); // 음식 데이터 DAO 추가
     //
     private static final Map<Integer, Command> guestCommands = new HashMap<>();
     private static final Map<Integer, Command> memberCommands = new HashMap<>();

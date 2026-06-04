@@ -3,9 +3,9 @@ package Kiosk.service;
 import Kiosk.SessionManager;
 import Kiosk.dao.CartDao;
 import Kiosk.dao.FoodDao;
-import Kiosk.dao.MysqlFoodDaoImpl;
+import Kiosk.dao.JdbcFoodDaoImpl;
 import Kiosk.dao.LsyOrderDao;
-import Kiosk.dao.MysqlOrderDaoImpl;
+import Kiosk.dao.JdbcOrderDaoImpl;
 import Kiosk.dao.JdbcCartDao;
 import Kiosk.domain.CartItem;
 import Kiosk.domain.Category;
@@ -19,9 +19,9 @@ import java.util.List;
 
 public class FoodOrderService {
 
-    private final FoodDao foodDao = new MysqlFoodDaoImpl();
+    private final FoodDao foodDao = new JdbcFoodDaoImpl();
     private final CartDao cartDao = new JdbcCartDao();
-    private final LsyOrderDao orderDao = new MysqlOrderDaoImpl();
+    private final LsyOrderDao orderDao = new JdbcOrderDaoImpl();
     private long lastOrderTime = 0;
 
     public List<Category> getAllCategories() {
