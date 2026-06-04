@@ -2,6 +2,7 @@ package Kiosk;
 
 import Kiosk.command.*;
 import Kiosk.dao.*;
+import Kiosk.domain.Member;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +16,8 @@ public class kioskController {
     // private static final MemberDao memberDao = new MockMemberDaoImpl(); // 기존 메모리 기반 저장소
     private static final FoodOrderController foodOrderController = new FoodOrderController();
     private static final MemberDao memberDao = new JdbcMemberDaoImpl(); // JSON 파일 기반 저장소로 변경
-    private static final LsyOrderDao orderDao = new MysqlOrderDaoImpl();
-    private static final FoodDao foodDao = new MysqlFoodDaoImpl(); // 음식 데이터 DAO 추가
+    private static final LsyOrderDao orderDao = new JdbcOrderDaoImpl();
+    private static final FoodDao foodDao = new JdbcFoodDaoImpl(); // 음식 데이터 DAO 추가
     //
     private static final Map<Integer, Command> guestCommands = new HashMap<>();
     private static final Map<Integer, Command> memberCommands = new HashMap<>();
@@ -68,7 +69,9 @@ public class kioskController {
         System.out.println("\n===================================");
         System.out.println("          PC방 키오스크 시스템         ");
         if (SessionManager.isLoggedIn()) {
-            System.out.println(" [ 로그인 중: " + SessionManager.getLoggedInMember().getName() + " 님 ]");
+            Member member = memberDao.getMemberById(SessionManager.getLoggedInMember().getMemberId());
+            System.out.println(" [ 로그인 중: " + member.getName() + " 님 "
+                                    + "(잔여 시간: " + member.getRemainingTime() + "분) ]");
             System.out.println("===================================");
             System.out.println("1. 시간 충전");
             System.out.println("2. 음식 주문");

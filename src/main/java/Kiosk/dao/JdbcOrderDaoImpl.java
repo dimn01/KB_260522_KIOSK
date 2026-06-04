@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MysqlOrderDaoImpl implements LsyOrderDao {
+public class JdbcOrderDaoImpl implements LsyOrderDao {
 
     @Override
     public void save(LsyOrder order) {
