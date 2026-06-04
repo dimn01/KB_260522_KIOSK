@@ -10,28 +10,28 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class PcRoomTerminalFrame extends JFrame {
-    
+
     enum KioskTheme {
-        DARK("다크", 
-             new Color(60, 60, 60), new Color(40, 40, 40), 
-             new Color(25, 25, 25), new Color(240, 240, 240), 
-             new Color(34, 34, 34), new Color(24, 24, 24), 
-             new Color(200, 200, 200), new Color(160, 160, 160), 
-             new Color(45, 45, 45), new Color(75, 75, 75)),
-        
-        WHITE("화이트", 
-              new Color(210, 210, 212), new Color(190, 190, 192), 
-              new Color(255, 255, 255), new Color(42, 42, 44), 
-              new Color(244, 244, 246), new Color(230, 230, 235), 
-              new Color(60, 60, 62), new Color(100, 100, 105), 
-              new Color(238, 238, 240), new Color(200, 200, 205)),
-        
-        BLUE_PURPLE("블루퍼플", 
-                    new Color(116, 143, 252), new Color(186, 150, 252), // 밝은 파스텔 블루, 연보라 테두리
-                    new Color(243, 240, 253), new Color(59, 23, 133), // 터미널 배경(연한 톤), 터미널 글자색(진보라)
-                    new Color(195, 218, 254), new Color(232, 218, 254), // 밝은 하늘색, 연보라 그라데이션 배경
-                    new Color(95, 61, 196), new Color(150, 110, 250), // 타이틀, 프롬프트
-                    new Color(255, 255, 255), new Color(186, 150, 252));
+        DARK("다크",
+                new Color(60, 60, 60), new Color(40, 40, 40),
+                new Color(25, 25, 25), new Color(240, 240, 240),
+                new Color(34, 34, 34), new Color(24, 24, 24),
+                new Color(200, 200, 200), new Color(160, 160, 160),
+                new Color(45, 45, 45), new Color(75, 75, 75)),
+
+        WHITE("화이트",
+                new Color(210, 210, 212), new Color(190, 190, 192),
+                new Color(255, 255, 255), new Color(42, 42, 44),
+                new Color(244, 244, 246), new Color(230, 230, 235),
+                new Color(60, 60, 62), new Color(100, 100, 105),
+                new Color(238, 238, 240), new Color(200, 200, 205)),
+
+        BLUE_PURPLE("블루퍼플",
+                new Color(116, 143, 252), new Color(186, 150, 252), // 밝은 파스텔 블루, 연보라 테두리
+                new Color(243, 240, 253), new Color(59, 23, 133), // 터미널 배경(연한 톤), 터미널 글자색(진보라)
+                new Color(195, 218, 254), new Color(232, 218, 254), // 밝은 하늘색, 연보라 그라데이션 배경
+                new Color(95, 61, 196), new Color(150, 110, 250), // 타이틀, 프롬프트
+                new Color(255, 255, 255), new Color(186, 150, 252));
 
         final String name;
         final Color color1;
@@ -45,7 +45,8 @@ public class PcRoomTerminalFrame extends JFrame {
         final Color inputBg;
         final Color inputBorderColor;
 
-        KioskTheme(String name, Color color1, Color color2, Color termBg, Color termFg, Color bgGradStart, Color bgGradEnd, Color titleColor, Color promptColor, Color inputBg, Color inputBorderColor) {
+        KioskTheme(String name, Color color1, Color color2, Color termBg, Color termFg, Color bgGradStart,
+                Color bgGradEnd, Color titleColor, Color promptColor, Color inputBg, Color inputBorderColor) {
             this.name = name;
             this.color1 = color1;
             this.color2 = color2;
@@ -66,13 +67,13 @@ public class PcRoomTerminalFrame extends JFrame {
     private JTextArea nextTerminal;
     private JScrollPane activeScroll;
     private JScrollPane nextScroll;
-    
+
     private JTextField inputField;
     private JLabel titleLabel;
     private JLabel promptLabel;
     private PipedOutputStream pipedOut;
     private PipedInputStream pipedIn;
-    
+
     private KioskTheme currentTheme = KioskTheme.DARK;
 
     // 버퍼 및 상태 관리
@@ -92,7 +93,7 @@ public class PcRoomTerminalFrame extends JFrame {
     public PcRoomTerminalFrame() {
         setUndecorated(true);
         setTitle("macOS Terminal - KIOSK");
-        setSize(980, 650);
+        setSize(640, 640);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 16, 16));
@@ -104,12 +105,14 @@ public class PcRoomTerminalFrame extends JFrame {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-                GradientPaint bgGrad = new GradientPaint(0, 0, currentTheme.bgGradStart, 0, getHeight(), currentTheme.bgGradEnd);
+                GradientPaint bgGrad = new GradientPaint(0, 0, currentTheme.bgGradStart, 0, getHeight(),
+                        currentTheme.bgGradEnd);
                 g2d.setPaint(bgGrad);
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 16, 16);
 
                 g2d.setStroke(new BasicStroke(2.0f));
-                GradientPaint borderGrad = new GradientPaint(0, 0, currentTheme.color1, getWidth(), getHeight(), currentTheme.color2);
+                GradientPaint borderGrad = new GradientPaint(0, 0, currentTheme.color1, getWidth(), getHeight(),
+                        currentTheme.color2);
                 g2d.setPaint(borderGrad);
                 g2d.drawRoundRect(1, 1, getWidth() - 2, getHeight() - 2, 16, 16);
             }
@@ -138,7 +141,8 @@ public class PcRoomTerminalFrame extends JFrame {
         trafficLightPanel.setOpaque(false);
 
         JButton closeBtn = createMacButton(new Color(255, 95, 86), new Color(220, 70, 65), () -> System.exit(0));
-        JButton minBtn = createMacButton(new Color(255, 189, 46), new Color(220, 160, 35), () -> setExtendedState(JFrame.ICONIFIED));
+        JButton minBtn = createMacButton(new Color(255, 189, 46), new Color(220, 160, 35),
+                () -> setExtendedState(JFrame.ICONIFIED));
         JButton zoomBtn = createMacButton(new Color(39, 201, 63), new Color(30, 170, 50), null);
 
         trafficLightPanel.add(closeBtn);
@@ -179,7 +183,8 @@ public class PcRoomTerminalFrame extends JFrame {
             public void componentResized(java.awt.event.ComponentEvent e) {
                 if (animationTimer == null || !animationTimer.isRunning()) {
                     activeScroll.setBounds(0, 0, terminalContainer.getWidth(), terminalContainer.getHeight());
-                    nextScroll.setBounds(terminalContainer.getWidth(), 0, terminalContainer.getWidth(), terminalContainer.getHeight());
+                    nextScroll.setBounds(terminalContainer.getWidth(), 0, terminalContainer.getWidth(),
+                            terminalContainer.getHeight());
                 }
             }
         });
@@ -191,7 +196,7 @@ public class PcRoomTerminalFrame extends JFrame {
         rightThemePanel.setOpaque(false);
         rightThemePanel.setLayout(new BoxLayout(rightThemePanel, BoxLayout.Y_AXIS));
         rightThemePanel.setBorder(new EmptyBorder(0, 16, 0, 0));
-        
+
         JLabel themeTitle = new JLabel("THEME SELECT");
         themeTitle.setFont(new Font("San Francisco", Font.BOLD, 11));
         themeTitle.setForeground(currentTheme.titleColor);
@@ -224,9 +229,9 @@ public class PcRoomTerminalFrame extends JFrame {
             themeBtn.setPreferredSize(new Dimension(110, 35));
             themeBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
             themeBtn.setBorder(BorderFactory.createLineBorder(t.color1, 1));
-            
+
             themeBtn.addActionListener(e -> applyTheme(t));
-            
+
             rightThemePanel.add(themeBtn);
             rightThemePanel.add(Box.createRigidArea(new Dimension(0, 12)));
         }
@@ -250,8 +255,7 @@ public class PcRoomTerminalFrame extends JFrame {
         inputField.setFont(new Font("Monospaced", Font.PLAIN, 14));
         inputField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(currentTheme.inputBorderColor, 1),
-                BorderFactory.createEmptyBorder(6, 8, 6, 8)
-        ));
+                BorderFactory.createEmptyBorder(6, 8, 6, 8)));
         inputPanel.add(inputField, BorderLayout.CENTER);
 
         inputField.addActionListener(e -> handleInputSend());
@@ -312,15 +316,15 @@ public class PcRoomTerminalFrame extends JFrame {
 
     private void applyTheme(KioskTheme theme) {
         this.currentTheme = theme;
-        
+
         titleLabel.setForeground(theme.titleColor);
         promptLabel.setForeground(theme.promptColor);
-        
+
         activeTerminal.setBackground(theme.termBg);
         activeTerminal.setForeground(theme.termFg);
         activeTerminal.setCaretColor(theme.termFg);
         activeScroll.getVerticalScrollBar().setBackground(theme.termBg);
-        
+
         nextTerminal.setBackground(theme.termBg);
         nextTerminal.setForeground(theme.termFg);
         nextTerminal.setCaretColor(theme.termFg);
@@ -331,9 +335,8 @@ public class PcRoomTerminalFrame extends JFrame {
         inputField.setCaretColor(theme.termFg);
         inputField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(theme.inputBorderColor, 1),
-                BorderFactory.createEmptyBorder(6, 8, 6, 8)
-        ));
-        
+                BorderFactory.createEmptyBorder(6, 8, 6, 8)));
+
         repaint();
     }
 
@@ -392,13 +395,13 @@ public class PcRoomTerminalFrame extends JFrame {
     private void handleInputSend() {
         String text = inputField.getText();
         inputField.setText("");
-        
+
         // 사용자가 보낸 입력 에코 출력
         SwingUtilities.invokeLater(() -> {
             activeTerminal.append(text + "\n");
             activeTerminal.setCaretPosition(activeTerminal.getDocument().getLength());
             currentScreenBuffer.append(text).append("\n");
-            
+
             // 사용자 입력 완료 시점부터 백엔드 응답 대기 상태로 진입
             awaitingResponse = true;
             incomingBuffer.setLength(0); // 수신 버퍼 클리어
@@ -415,35 +418,36 @@ public class PcRoomTerminalFrame extends JFrame {
     // 좌우로 부드럽게 화면을 넘기는 트랜지션 슬라이딩 애니메이션 실행
     private void triggerScreenTransition() {
         awaitingResponse = false;
-        if (incomingBuffer.length() == 0) return;
+        if (incomingBuffer.length() == 0)
+            return;
 
         String nextText = incomingBuffer.toString();
-        
+
         // 슬라이드 전환 조건 검사: 구분선(===, ---)이나 완료/알림 메시지가 있을 때만 전체 화면을 전환
-        boolean shouldSlide = nextText.contains("===") || 
-                             nextText.contains("---") || 
-                             nextText.contains("환영합니다") || 
-                             nextText.contains("로그아웃") ||
-                             nextText.contains("[알림]") ||
-                             nextText.contains("등록되었습니다") ||
-                             nextText.contains("제거되었습니다") ||
-                             nextText.contains("수정되었습니다");
+        boolean shouldSlide = nextText.contains("===") ||
+                nextText.contains("---") ||
+                nextText.contains("환영합니다") ||
+                nextText.contains("로그아웃") ||
+                nextText.contains("[알림]") ||
+                nextText.contains("등록되었습니다") ||
+                nextText.contains("제거되었습니다") ||
+                nextText.contains("수정되었습니다");
 
         if (shouldSlide) {
             // 새 화면에 표시될 텍스트 준비
             nextTerminal.setText(nextText);
             nextTerminal.setCaretPosition(0);
-            
+
             // 애니메이션 시작 시점 위치 잡기
             int width = terminalContainer.getWidth();
             int height = terminalContainer.getHeight();
-            
+
             activeScroll.setBounds(0, 0, width, height);
             nextScroll.setBounds(width, 0, width, height); // 대기 패널은 우측 바깥에 위치
             nextScroll.setVisible(true);
 
             animationStart = System.currentTimeMillis();
-            
+
             if (animationTimer != null && animationTimer.isRunning()) {
                 animationTimer.stop();
             }
@@ -454,11 +458,11 @@ public class PcRoomTerminalFrame extends JFrame {
                 if (t >= 1.0) {
                     t = 1.0;
                     animationTimer.stop();
-                    
+
                     // 스왑 완료 처리
                     activeScroll.setBounds(width, 0, width, height);
                     nextScroll.setBounds(0, 0, width, height);
-                    
+
                     // 변수 스왑
                     JTextArea tempArea = activeTerminal;
                     activeTerminal = nextTerminal;
@@ -475,12 +479,12 @@ public class PcRoomTerminalFrame extends JFrame {
                     // 부드러운 감속 효과 적용 (ease-out-cubic)
                     double ease = 1.0 - Math.pow(1.0 - t, 3.0);
                     int offset = (int) (width * ease);
-                    
+
                     activeScroll.setBounds(-offset, 0, width, height);
                     nextScroll.setBounds(width - offset, 0, width, height);
                 }
             });
-            
+
             animationTimer.start();
         } else {
             // 슬라이드 하지 않고 현재 화면에 그대로 덧붙임 (아이디/비밀번호 등 순차 입력을 한 화면에서 처리)
