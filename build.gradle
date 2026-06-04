@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'org.example'
@@ -9,7 +10,25 @@ repositories {
     mavenCentral()
 }
 
+application {
+    mainClass = 'Kiosk.kioskController'
+}
+
+run {
+    standardInput = System.in
+    systemProperty "file.encoding", "UTF-8"
+    systemProperty "stdout.encoding", "MS949"
+    systemProperty "stderr.encoding", "MS949"
+    systemProperty "sun.stdout.encoding", "MS949"
+    systemProperty "sun.stderr.encoding", "MS949"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
