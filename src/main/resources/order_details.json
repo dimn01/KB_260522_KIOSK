@@ -54,5 +54,37 @@
     "name": "콜라",
     "quantity": 2,
     "price": 2000
+  },
+  {
+    "orderDetailId": 8,
+    "orderId": 6,
+    "foodId": "D001",
+    "name": "아메리카노",
+    "quantity": 1,
+    "price": 2500
+  },
+  {
+    "orderDetailId": 9,
+    "orderId": 7,
+    "foodId": "R001",
+    "name": "신라면",
+    "quantity": 2,
+    "price": 4000
+  },
+  {
+    "orderDetailId": 10,
+    "orderId": 8,
+    "foodId": "R002",
+    "name": "짜파게티",
+    "quantity": 2,
+    "price": 4500
+  },
+  {
+    "orderDetailId": 11,
+    "orderId": 9,
+    "foodId": "B003",
+    "name": "통삼겹짜글이",
+    "quantity": 2,
+    "price": 8000
   }
 ]
