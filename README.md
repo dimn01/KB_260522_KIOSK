@@ -1,4 +1,5 @@
-<img width="1920" height="1080" alt="database" src="https://github.com/user-attachments/assets/e81b3c0c-2283-4988-89cf-809af033993a" />
+<img width="2400" height="895" alt="morflax-studio-2026-06-05 10 16 35-Photoroom" src="https://github.com/user-attachments/assets/60b38239-a84d-497b-b0fd-9a5d28e05d84" />
+
 
 # 🖥️ PC방 키오스크 시스템 (KB_260522_KIOSK)
 
